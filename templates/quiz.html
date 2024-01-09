@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_quiz.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
+    <title>Your Flask App - Quiz Page</title>
+</head>
+<body>
+    <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="Your Image" class="top-left-image">
+    <div>
+        <h2>Quiz based on Generated Text</h2>
+        {% for card in quiz_data %}
+            <div class="quiz-card" onclick="revealAnswer(this)">
+                <div class="question" style="display: block;">
+                    <h3>Question:</h3>
+                    <p>{{ card['question'] }}</p>
+                </div>
+                <div class="answer" style="display: none;">
+                    <h3>Answer:</h3>
+                    <p>{{ card['answer']|trim(' :') }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        <form id="reloadForm" action="/quiz" method="post" style="display: none;">
+            <input type="hidden" name="action" value="reload_quiz">
+            <input type="hidden" name="improved_text" value="{{ improved_text }}">
+        </form>
+        <button id="reloadButton" onclick="reloadPage()">Load new quiz card</button>
+
+
+        <a href="{{ url_for('hello_world') }}" class="go-back-link" onclick="goBack()">
+            <span class="go-back-icon">&#x2190;</span> <!-- Unicode arrow character -->
+            Go Back
+        </a>
+    </div>
+
+    <script>
+        function reloadPage() {
+            document.getElementById('reloadForm').submit();
+        }
+
+        function revealAnswer(card) {
+            const answer = card.querySelector('.answer');
+            const question = card.querySelector('.question');
+
+            if (answer.style.display === 'none') {
+                answer.style.display = 'block';
+                question.style.display = 'none';
+            } else {
+                answer.style.display = 'none';
+                question.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+

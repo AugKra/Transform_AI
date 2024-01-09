@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_plain_text.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
+    <title>Your Flask App - Upload Page</title>
+</head>
+<body>
+    <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="Your Image" class="top-left-image">
+    <div>
+        <h2></h2>
+        {% if detected_text %}
+            <p>{{ detected_text }}</p>
+        {% else %}
+            <p>No text detected.</p>
+        {% endif %}
+
+        <a href="{{ url_for('hello_world') }}" class="go-back-link" onclick="goBack()">
+            <span class="go-back-icon">&#x2190;</span> <!-- Unicode arrow character -->
+            Go Back
+        </a>
+    </div>
+</body>
+</html>
+
+

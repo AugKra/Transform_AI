@@ -1,0 +1,152 @@
+<!-- mind_map.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_mind_map.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <title>Your Flask App - Mind Map</title>
+</head>
+<body>
+    <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="Your Image" class="top-left-image">
+    <div>
+        
+        <div id="mindMap" style="height: 400px; margin-top: 50px;"></div>
+
+        <a href="{{ url_for('hello_world') }}" class="go-back-link" onclick="goBack()">
+            <span class="go-back-icon">&#x2190;</span> <!-- Unicode arrow character -->
+            Go Back
+        </a>
+    </div>
+
+    <script>
+        // Your D3.js code for creating the mind map will go here
+        // D3.js code for creating the mind map
+        const keyConcepts = `{{ key_concepts|safe }}`;  // Use |safe to render HTML
+    
+        // Split key concepts into an array
+        const conceptsArray = keyConcepts.split('\n').filter(Boolean);
+
+        // Create a simple mind map using D3.js
+        const mindMapContainer = d3.select('#mindMap');
+    
+        const nodes = conceptsArray.map((concept, index) => ({ id: index, name: concept }));
+        const links = d3.range(conceptsArray.length - 1).map(index => ({ source: index + 1, target: 0 }));
+    
+        // Set fixed dimensions for the simulation
+        const width = 800;
+        const height = 700;
+    
+        const svg = mindMapContainer.append('svg')
+            .attr('width', width)
+            .attr('height', height);
+    
+        const simulation = d3.forceSimulation(nodes)
+            .force('link', d3.forceLink(links).id(d => d.id))
+            .force('charge', d3.forceManyBody().strength(-20))
+            .force('center', d3.forceCenter(width / 2, height / 2))
+            .force('collision', d3.forceCollide().radius(d => Math.max(15, getTextWidth(d.name) / 2 + 5) + 40)
+                .iterations(2)) // Adjust the number of iterations for collision detection
+
+        const link = svg.selectAll('line')
+            .data(links)
+            .enter().append('line')
+            .attr('stroke', 'black');  // Set the line color to black
+    
+        // Append a group element for each node (circle + text)
+        const node = svg.selectAll('.node')
+            .data(nodes)
+            .enter().append('g')
+            .attr('class', 'node')
+            .call(d3.drag()
+                .on('start', dragstarted)
+                .on('drag', dragged)
+                .on('end', dragended));
+    
+        // Append a circle to the node
+        node.append('circle')
+            .attr('r', d => Math.max(15, getTextWidth(d.name) / 2 + 5))  // Adjust the minimum radius
+            .attr('fill', (d, i) => (i === 0) ? '#A7D6A3' : 'white')  // Set the fill color to #A7D6A3 for the first circle, white for others
+            .call(d => d.datum().fixed = (d.i === 0));  // Set 'fixed' property for the head circle
+
+        // Append text to the node
+        node.append('text')
+            .text(d => d.name)
+            .text(d => (d.name.startsWith('- ') ? d.name.slice(2) : d.name))  // Remove the leading dash and space if they exist
+            .attr('text-anchor', 'middle')
+            .attr('dy', '0.35em')  // Adjust the vertical alignment
+            .attr('fill', 'black');  // Set the text color to black
+    
+            simulation.on('tick', () => {
+                link
+                    .attr('x1', d => d.source.x)
+                    .attr('y1', d => d.source.y)
+                    .attr('x2', d => d.target.x)
+                    .attr('y2', d => d.target.y);
+
+                // Update the position and radius of the node (both circle and text)
+                node.attr('transform', d => {
+                    // Ensure nodes stay within the borders
+                    const radius = Math.max(15, getTextWidth(d.name) / 2 + 5);
+                    d.x = Math.max(radius, Math.min(width - radius, d.x));
+                    d.y = Math.max(radius, Math.min(height - radius, d.y));
+
+                    return `translate(${d.x},${d.y})`;
+                });
+
+                node.select('circle')
+                    .attr('r', d => Math.max(15, getTextWidth(d.name) / 2 + 5))
+                    .attr('fill', (d, i) => (i === 0) ? '#A7D6A3' : 'white');
+            });
+
+                // Fix the head circle in the center
+                node.filter(d => d.id === 0)
+                    .each(d => {
+                        d.fx = width / 2;
+                        d.fy = height / 2;
+                    });
+
+    
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            if (d.id !== 0) { // Skip setting fixed position for the head circle
+                d.fx = d.x;
+                d.fy = d.y;
+            }
+        }
+
+        function dragged(event, d) {
+            if (d.id !== 0) { // Skip dragging the head circle
+                d.fx = event.x;
+                d.fy = event.y;
+            }
+        }
+
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            if (d.id !== 0) { // Skip fixing the head circle
+                d.fx = null;
+                d.fy = null;
+            }
+        }
+    
+        function getTextWidth(text) {
+            // Create a temporary span to measure text width
+            const span = document.createElement('span');
+            span.style.whiteSpace = 'nowrap';
+            span.textContent = text;
+            document.body.appendChild(span);
+            const width = span.offsetWidth;
+            document.body.removeChild(span);
+            return width;
+        }
+    </script>
+    
+    
+    
+</body>
+</html>
+

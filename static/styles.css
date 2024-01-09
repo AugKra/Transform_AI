@@ -1,0 +1,452 @@
+body {
+    background-color: #F2E9E0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    
+}
+
+.main-content {
+    text-align: center;
+    position: relative;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+h1 {
+    text-align: center;
+    font-size: 3em;
+    letter-spacing: 10px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    white-space: nowrap; /* Prevent line breaks */
+    overflow: hidden; /* Hide overflow during animation */
+    animation: fadeIn 2s ease-out forwards; /* Animation for text */
+    position: relative; /* Ensure the z-index works */
+    z-index: 3; /* Ensure the h1 is above the circles and lines */
+}
+
+h1 span {
+    display: inline-block;
+    opacity: 0; /* Initially hide each letter */ 
+    animation: letterAnimation 0.5s ease-out forwards; /* Animation for each letter */
+}
+
+@keyframes letterAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1 span:nth-child(1) { animation-delay: 0.2s; }
+h1 span:nth-child(2) { animation-delay: 0.4s; }
+h1 span:nth-child(3) { animation-delay: 0.6s; }
+h1 span:nth-child(4) { animation-delay: 0.8s; }
+h1 span:nth-child(5) { animation-delay: 1.0s; }
+h1 span:nth-child(6) { animation-delay: 1.2s; }
+h1 span:nth-child(7) { animation-delay: 1.4s; }
+h1 span:nth-child(8) { animation-delay: 1.6s; }
+h1 span:last-child { animation-delay: 1.8s; }
+
+
+
+/* Circle One */
+@keyframes fadeInCircleOne {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.circle.one {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background-color: #A7D6A3;
+    border-radius: 50%;
+    z-index: 2;
+    top: 50%;
+    left: calc(50% + 257px);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    animation: fadeInCircleOne 1s ease-out forwards;
+    animation-delay: 2.2s; /* Add a delay for staggered effect */
+}
+
+/* Circle Two */
+@keyframes fadeInCircleTwo {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.circle.two {
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    background-color: #BD6060;
+    border-radius: 50%;
+    z-index: 2;
+    top: calc(50% - 55px);
+    left: calc(50% + 400px);
+    transform: translate(-50%, -50%);
+    opacity: 0; /* Initially hide Circle Two */
+    animation: fadeInCircleTwo 1s ease-out forwards;
+    animation-delay: 6.1s; /* Adjust the delay as needed */
+}
+
+
+/* Circle Three */
+@keyframes fadeInCircleThree {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.circle.three {
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    background-color: #60A1BD;
+    border-radius: 50%;
+    z-index: 2;
+    top: calc(50% + 140px);
+    left: calc(50% + 470px);
+    transform: translate(-50%, -50%);
+    opacity: 0; /* Initially hide Circle Three */
+    animation: fadeInCircleThree 1s ease-out forwards;
+    animation-delay: 6.1s; /* Adjust the delay as needed */
+}
+
+
+/* Circle Four */
+@keyframes fadeInCircleFour {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.circle.four {
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    background-color: #DDCB70;
+    border-radius: 50%;
+    z-index: 2;
+    top: calc(50% + 190px);
+    left: calc(50% + 250px);
+    transform: translate(-50%, -50%);
+    opacity: 0; /* Initially hide Circle Four */
+    animation: fadeInCircleFour 1s ease-out forwards;
+    animation-delay: 6.1s; /* Adjust the delay as needed */
+}
+
+
+/* Black Circle */
+@keyframes fadeInBlackCircle {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.circle.black {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    border-radius: 50%;
+    z-index: 2;
+    top: calc(50% + 105px);
+    left: calc(50% + 355px);
+    transform: translate(-50%, -50%);
+    opacity: 0; /* Initially hide the black circle */
+    animation: fadeInBlackCircle 1s ease-out forwards;
+    animation-delay: 4.1s; /* Adjust the delay as needed */
+}
+
+/* Line One */
+@keyframes lineOneAnimation {
+    0% {
+        height: 0;
+    }
+    100% {
+        height: 75px; /* Set the final height of the line for Line One */
+    }
+}
+
+.line.one::after {
+    content: '';
+    position: absolute;
+    width: 1px; /* Adjust the width of the line as needed */
+    height: 0; /* Set initial height to 0 */
+    background-color: black;
+    top: calc(50% + 34px); /* Align with the center of the container */
+    left: calc(50% + 285px); /* Align with the center of the container */
+    transform-origin: top center; /* Set the transform origin to the top center */
+    transform: rotate(315deg); /* Rotate the line */
+    z-index: 2;
+    animation: lineOneAnimation 1s ease-out forwards; /* Animation for Line One */
+    animation-delay: 3.1s; 
+}
+
+
+/* Line Two */
+@keyframes lineTwoAnimation {
+    0% {
+        height: 0;
+    }
+    100% {
+        height: 114px; /* Set the final height of the line for Line Two */
+    }
+}
+
+.line.two::after {
+    content: '';
+    position: absolute;
+    width: 1px; /* Adjust the width of the line as needed */
+    height: 0; /* Set initial height to 0 */
+    background-color: black;
+    top: calc(50% + 91px);
+    left: calc(50% + 360px);
+    transform-origin: top center; /* Set the transform origin to the top center */
+    transform: translateX(-50%) rotate(195deg);
+    z-index: 2;
+    animation: lineTwoAnimation 1s ease-out forwards; /* Animation for Line Two */
+    animation-delay: 5.1s; 
+}
+
+
+/* Line Three */
+@keyframes lineThreeAnimation {
+    0% {
+        height: 0;
+    }
+    100% {
+        height: 50px; /* Set the final height of the line for Line Three */
+    }
+}
+
+.line.three::after {
+    content: '';
+    position: absolute;
+    width: 1px; /* Adjust the width of the line as needed */
+    height: 0; /* Set initial height to 0 */
+    background-color: black;
+    top: calc(50% + 110px);
+    left: calc(50% + 370px);
+    transform-origin: top center; /* Set the transform origin to the top center */
+    transform: translateX(-50%) rotate(290deg);
+    z-index: 2;
+    animation: lineThreeAnimation 1s ease-out forwards; /* Animation for Line Three */
+    animation-delay: 5.1s; 
+}
+
+
+/* Line Four */
+@keyframes lineFourAnimation {
+    0% {
+        height: 0;
+    }
+    100% {
+        height: 101px; /* Set the final height of the line for Line Four */
+    }
+}
+
+.line.four::after {
+    content: '';
+    position: absolute;
+    width: 1px; /* Adjust the width of the line as needed */
+    height: 0; /* Set initial height to 0 */
+    background-color: black;
+    top: calc(50% + 110px);
+    left: calc(50% + 350px);
+    transform-origin: top center; /* Set the transform origin to the top center */
+    transform: translateX(-50%) rotate(50deg);
+    z-index: 2;
+    animation: lineFourAnimation 1s ease-out forwards; /* Animation for Line Four */
+    animation-delay: 5.1s; 
+}
+
+/* Radio buttons and labels */
+input[type="radio"] {
+    margin-right: 50px; /* Add some space to the right of the radio button */
+    vertical-align: middle; /* Align the radio button vertically */
+}
+
+/* Container for radio buttons */
+.radio-container {
+    margin-top: 5px; /* Add margin to create space between the radio buttons */
+}
+
+/* Label styles */
+label {
+    display: block; /* Display the label as a block element */
+    text-align: center; /* Center the text under the radio button */
+    position: relative; /* Set the label as a relatively positioned element */
+    margin-bottom: 5px; /* Adjust vertical space between checkbox and label */
+}
+
+/* Adjust the label position */
+label {
+    top: 0px; /* Position the label slightly lower */
+    margin-right: 45px;
+    white-space: nowrap;
+}
+
+/* Styles for the upload symbol label */
+/* Styles for the upload symbol label */
+.centered-container {
+    text-align: center;
+    position: absolute;
+    top: 50%; /* Center the buttons vertically */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 300px; /* Adjust the top margin as needed */
+}
+
+.upload-label {
+    font-size: 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #000; /* Add a border around the upload label */
+    padding: 5px 5px; /* Add padding for spacing between the content and the border */
+    border-radius: 8px; /* Add border-radius for rounded corners */
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    margin: 5px;
+}
+
+/* General style for action buttons */
+.action-button {
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 15px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #F2E9E0;
+    border: 2px solid #000;
+    color: black; /* Text color for better visibility */
+}
+
+/* Style for the Plain Text button */
+.plain-text-button {
+    padding: 10px 10px;
+}
+
+/* Style for the Mind Map button */
+.mind-map-button {
+    padding: 10px 10px;
+}
+
+/* Style for the Quiz button */
+.quiz-button {
+    padding: 10px 10px;
+}
+
+/* Style for the About button and popup */
+.about-button {
+    position: absolute;
+    top: 20px; /* Adjust top position */
+    right: 20px; /* Adjust right position */
+    z-index: 9999; /* Set a high z-index to ensure it's above other content */
+    cursor: pointer;
+}
+
+.about-text {
+    font-family: 'Inter', sans-serif;
+    display: inline-block;
+    font-size: 22px;
+    font-weight: 400;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.about-text::after {
+    content: '';
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: #A7D6A3; /* Line color */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease; /* Animation effect for the line */
+}
+
+.about-button:hover .about-text::after {
+    width: 0; /* Hide the line on hover */
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+    z-index: 9998; /* Z-index below the about-popup */
+}
+
+.about-popup {
+    font-family: 'Inter', sans-serif;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    z-index: 9999; /* Z-index above the overlay */
+    border-radius: 10px; /* Border radius for a rounded popup */
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
