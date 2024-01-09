@@ -3,7 +3,7 @@ import traceback
 import openai
 from werkzeug.utils import secure_filename
 from google.cloud import vision_v1
-from utils.secrets import API_KEY
+from secrets_1 import API_KEY
 
 API_KEY = 'API_KEY'
 
