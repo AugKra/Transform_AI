@@ -51,31 +51,25 @@
         <form id="uploadForm" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
             <label for="file-upload" class="upload-label">
                 <input type="file" id="file-upload" name="file" accept=".jpg, .jpeg, .png .heic" style="display: none;" onchange="updateFileName(this)">
-                &#x21EA; <!-- Unicode icon for upload -->
+                &#x21EA; 
                 <span id="file-name">Upload File</span>
             </label>
 
-            <!-- Plain Text button with a specific class -->
             <button type="button" id="textExtraction" onclick="submitForm('/plain_text')" class="action-button plain-text-button">Plain Text</button>
 
-            <!-- Mind Map button with a specific class -->
             <button type="button" id="createMindMap" onclick="submitForm('/mind_map')" class="action-button mind-map-button">Mind Map</button>
 
-            <!-- Quiz button with a specific class -->
             <button type="button" id="generateQuiz" onclick="submitForm('/quiz')" class="action-button quiz-button">Generate Quiz</button>
         </form>  
     </div> 
     <script>
-        // Function to update the file name in the label and store it in session storage
         function updateFileName(input) {
             const fileName = input.files.length > 0 ? input.files[0].name : "Upload File";
             document.getElementById("file-name").innerText = fileName;
     
-            // Store the file name in session storage
             sessionStorage.setItem("currentFileName", fileName);
         }
     
-         // Function to submit the form with the specified action URL
          function submitForm(actionUrl) {
             if (validateForm()) {
                 document.getElementById('uploadForm').action = actionUrl;
@@ -83,25 +77,20 @@
             }
         }
     
-        // On page load, check if there is a stored file name in session storage
         window.onload = function () {
             const storedFileName = sessionStorage.getItem("currentFileName");
             if (storedFileName) {
-                // If a file name is stored, update the file name display
                 document.getElementById("file-name").innerText = storedFileName;
             }
         };
     
-        // On "Go Back" link click, check if there is a stored file name in session storage
         function goBack() {
             const storedFileName = sessionStorage.getItem("currentFileName");
             if (storedFileName) {
-                // If a file name is stored, update the file name display
                 document.getElementById("file-name").innerText = storedFileName;
             }
         }
 
-        // Function to validate whether a file has been uploaded before submitting the form
         function validateForm() {
             const fileName = document.getElementById("file-name").innerText;
 
@@ -115,7 +104,6 @@
     </script> 
 
     <script>
-         // Function to show/hide the about popup and overlay
         function showAbout() {
             const overlay = document.getElementById("about-overlay");
             const aboutPopup = document.getElementById("about-popup");
@@ -124,7 +112,6 @@
             aboutPopup.style.display = "block";
         }
 
-        // Function to close the about popup
         function closeAboutPopup() {
             const overlay = document.getElementById("about-overlay");
             const aboutPopup = document.getElementById("about-popup");
@@ -133,7 +120,6 @@
             aboutPopup.style.display = "none";
         }
 
-        // Function to close the about popup when clicking outside the popup
         window.onclick = function (event) {
             const overlay = document.getElementById("about-overlay");
             const aboutPopup = document.getElementById("about-popup");
